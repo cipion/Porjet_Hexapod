@@ -1,0 +1,6 @@
+robot\Robot.js:
+
+faire les importe, 
+define fait
+private variable
+prototype methodes OK
