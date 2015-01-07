@@ -15,18 +15,21 @@ CONFIG   -= app_bundle
 TEMPLATE = app
 
 
-SOURCES += main.cpp \
+SOURCES += \
     hexapod/hexapod.cpp \
     robot/Patte.cpp \
     robot/Robot.cpp \
     servomoteur/AX12.cpp \
     servomoteur/ServoMoteur.cpp \
-    stdrpi/SerialRPi.cpp
+    stdrpi/SerialRPi.cpp \
+    robot/StructPatte.cpp \
+    robot/PeriodicUpdateTask.cpp
 
 HEADERS += \
-    hexapod/hexapod.h \
     robot/Patte.h \
     robot/Robot.h \
     servomoteur/AX12.h \
     servomoteur/ServoMoteur.h \
-    stdrpi/SerialRPi.h
+    stdrpi/SerialRPi.h \
+    robot/StructPatte.h \
+    robot/PeriodicUpdateTask.h

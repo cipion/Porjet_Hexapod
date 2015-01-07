@@ -1,5 +1,5 @@
 #include "Robot.h"
-
+#define M_Pi 3.14159265359
 
 Robot::Robot(GpioController gpioRPi)
 {
@@ -9,9 +9,9 @@ Robot::Robot(GpioController gpioRPi)
             // Positionnement bascule mode emission
             modeBasc = gpioRPi.provisionDigitalOutputPin(RaspiPin.GPIO_01, PinState.HIGH);
 
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
+            try { //arrete le thread pendant 1 seconde  (java)
+                Thread.sleep(1000); // trouver un equivalent en C++
+            } catch (InterruptedException e) { // on gere l'exception (java)
                 e.printStackTrace();
             }
 
@@ -23,18 +23,19 @@ Robot::Robot(GpioController gpioRPi)
             back_left = new Patte(liaisonRS232, (STEP_MAX/4), (char)7, (char)9, (char)11);
             back_right = new Patte(liaisonRS232, ((STEP_MAX/4)*3), (char)8, (char)10, (char)12);
 
-            System.out.print("InitServo ... ");
+            std::cout<<"InitServo ..."<<std::endl;
 
             // Init Servomoteurs
             originRobot();
 
+            // exception java à convertir en c++
             try {
-                Thread.sleep(200);
+                Thread.sleep(200); // sleep 0,2 seconde
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
-            System.out.println(" OK");
+            std::cout<<"OK"<<std::endl;
 
             // Definition de l'handle
             handle = this;
@@ -49,7 +50,7 @@ Robot::~Robot()
 }
 
 
-void processDirectionRobot()
+void Robot::processDirectionRobot()
 {
     long w_periodTimer = 100;
             // Set du timer appellant la methode sendDirectionsPattes cycliquement
@@ -123,18 +124,19 @@ void processDirectionRobot()
                         w_signJoyLeft = 1;
                     }
 
-                    float w_xCIR = Math.round( ( (Math.cos(Math.toRadians( angleLeftJoy + w_phiCIR )) * VAL_PHI_CIR ) / (w_signJoyLeft * w_z)) * 100) / 100;
-                    float w_yCIR = Math.round( ( (Math.sin(Math.toRadians( angleLeftJoy + w_phiCIR )) * VAL_PHI_CIR ) / (w_signJoyLeft * w_z)) * 100) / 100;
+
+                    float w_xCIR = round( ( (cos(M_Pi * ( angleLeftJoy + w_phiCIR )/180) * VAL_PHI_CIR ) / (w_signJoyLeft * w_z)) * 100) / 100;
+                    float w_yCIR = round( ( (sin(M_Pi * ( angleLeftJoy + w_phiCIR )/180) * VAL_PHI_CIR ) / (w_signJoyLeft * w_z)) * 100) / 100;
 
                     float w_distCIR = module(w_xCIR, w_yCIR);
 
                     // Calcul distances (toujour positif)
-                    float w_distFL = (float)Math.sqrt( ((158 + w_xCIR) * (158 + w_xCIR)) + ((218 - w_yCIR) * (218 - w_yCIR)) );
-                    float w_distFR = (float)Math.sqrt( ((158 - w_xCIR) * (158 - w_xCIR)) + ((218 - w_yCIR) * (218 - w_yCIR)) );
-                    float w_distML = (float)Math.sqrt( ((239 + w_xCIR) * (239 + w_xCIR)) + (w_yCIR * w_yCIR) );
-                    float w_distMR = (float)Math.sqrt( ((239 - w_xCIR) * (239 - w_xCIR)) + (w_yCIR * w_yCIR) );
-                    float w_distBL = (float)Math.sqrt( ((158 + w_xCIR) * (158 + w_xCIR)) + ((218 + w_yCIR) * (218 + w_yCIR)) );
-                    float w_distBR = (float)Math.sqrt( ((158 - w_xCIR) * (158 - w_xCIR)) + ((218 + w_yCIR) * (218 + w_yCIR)) );
+                    float w_distFL = (float)sqrt( ((158 + w_xCIR) * (158 + w_xCIR)) + ((218 - w_yCIR) * (218 - w_yCIR)) );
+                    float w_distFR = (float)sqrt( ((158 - w_xCIR) * (158 - w_xCIR)) + ((218 - w_yCIR) * (218 - w_yCIR)) );
+                    float w_distML = (float)sqrt( ((239 + w_xCIR) * (239 + w_xCIR)) + (w_yCIR * w_yCIR) );
+                    float w_distMR = (float)sqrt( ((239 - w_xCIR) * (239 - w_xCIR)) + (w_yCIR * w_yCIR) );
+                    float w_distBL = (float)sqrt( ((158 + w_xCIR) * (158 + w_xCIR)) + ((218 + w_yCIR) * (218 + w_yCIR)) );
+                    float w_distBR = (float)sqrt( ((158 - w_xCIR) * (158 - w_xCIR)) + ((218 + w_yCIR) * (218 + w_yCIR)) );
 
                     float w_distMax = getMax(w_distFL, w_distFR, w_distML, w_distMR, w_distBL, w_distBR);
 
@@ -210,7 +212,7 @@ void processDirectionRobot()
 }
 
 
-void sendDirectionsPattes()
+void Robot::sendDirectionsPattes()
 {
     // Mise a jour des patte
             if( (x_joy == 0) && (y_joy == 0) && (z_joy == 0) )
@@ -218,7 +220,7 @@ void sendDirectionsPattes()
                 // baisser toute les pattes
             }
             else
-            {
+            { // exeption a changer pour le C++
                 try {
                     front_left.upDateDroiteMov(angleFL, longueurFL, vitesseServomoteurs);
                     front_right.upDateDroiteMov(angleFR, longueurFR, vitesseServomoteurs);
@@ -233,13 +235,13 @@ void sendDirectionsPattes()
 }
 
 
-static Robot getHandle()
+static Robot::getHandle()
 {
 return handle;
 }
 
 
-void originRobot()
+void Robot::originRobot()
 {
     StructPatte w_middle = Patte.getPointMiddle();
 
@@ -250,7 +252,7 @@ void originRobot()
             back_left.resetStep();
             back_right.resetStep();
 
-            try {
+            try { // EXEPTION !! à mettre en c++
                 front_left.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 front_right.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 middle_left.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
@@ -263,7 +265,7 @@ void originRobot()
 }
 
 
-void MouvementX(int x_ws)
+void Robot::MouvementX(int x_ws)
 {
     if( (x_ws > (-DEAD_ZONE_JOY)) && (x_ws < (DEAD_ZONE_JOY)) )
                 x_ws = 0;
@@ -276,7 +278,7 @@ void MouvementX(int x_ws)
 }
 
 
-void MouvementY(int y_ws)
+void Robot::MouvementY(int y_ws)
 {
     if( (y_ws > (-DEAD_ZONE_JOY)) && (y_ws < (DEAD_ZONE_JOY)) )
                 y_ws = 0;
@@ -289,7 +291,7 @@ void MouvementY(int y_ws)
 }
 
 
-void MouvementZ(int z_ws)
+void Robot::MouvementZ(int z_ws)
 {
     if( (z_ws > (-DEAD_ZONE_JOY)) && (z_ws < (DEAD_ZONE_JOY)) )
                 z_ws = 0;
@@ -302,7 +304,7 @@ void MouvementZ(int z_ws)
 }
 
 
-static float getMax(float val1, float val2, float val3, float val4, float val5, float val6)
+static float Robot::getMax(float val1, float val2, float val3, float val4, float val5, float val6)
 {
     float valeurMax;
 
@@ -327,28 +329,28 @@ static float getMax(float val1, float val2, float val3, float val4, float val5, 
 }
 
 
-static int getLongueurMovCIR(float dist, float distMax)
+static int Robot::getLongueurMovCIR(float dist, float distMax)
 {
     return (int)((LONGUEUR_MAX * dist) / distMax);
 }
 
 
-static int getAngleCIR(float distCIR, float distHypPatte, float distPatte)
+static int Robot::getAngleCIR(float distCIR, float distHypPatte, float distPatte)
 {
     return (int)Math.round(Math.acos( ((distHypPatte * distHypPatte) + (distCIR * distCIR) - (distPatte * distPatte)) / (2 * distHypPatte * distCIR) ));
 }
 
-static float module(float x, float y)
+static float Robot::module(float x, float y)
 {
     return (float)(Math.sqrt(x*x + y*y) );
 }
 
-static int module(int x, int y)
+static int Robot::module(int x, int y)
 {
     return (int)(Math.round( Math.sqrt(x*x + y*y) ));
 }
 
-static int arcTanDeg(int x, int y)
+static int Robot::arcTanDeg(int x, int y)
 {
     return (int)((Math.round(Math.toDegrees(Math.atan2(y, x))) + 360) % 360);
 }
