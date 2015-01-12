@@ -1,3 +1,6 @@
+#ifndef PATTE_H
+#define PATTE_H
+
 /**
  * This file is part of OVPiPod.
  *
@@ -19,7 +22,8 @@
 #include "../servomoteur/AX12.h"
 #include "../servomoteur/ServoMoteur.h"
 #include "../stdrpi/SerialRPi.h"
-
+#include <math.h>
+#include "Robot.h"
 /**
  * Classe definissant une patte d'un robot contennant 3 servomoteurs (Coxa, Femur, Tibia)
  *
@@ -250,3 +254,4 @@ private:
 
 
 }
+#endif PATTE_H

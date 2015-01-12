@@ -40,6 +40,6 @@ void AX12::setPositionExtrapol(char angle, char vitesse)
     data[10] = CalcCRC(data);						// CRC
 
     // envoi de la trame
-    serialPi.send(data, 11); // !!!!!!
+    serialPi.send(data, 11); // todo
 }
 

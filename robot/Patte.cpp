@@ -1,5 +1,5 @@
 #include "Patte.h"
-
+#define M_Pi 3.14159265359
 
 Patte::~Patte()
 {
@@ -9,14 +9,11 @@ Patte::Patte(SerialRPi liaison, int Step, char IDCoxa, char IDFemur, char IDTibi
     initStep = Step;
     step = Step;
 
-    try {
+
         servoCoxa = new AX12(liaison, IDCoxa);
         servoFemur = new AX12(liaison, IDFemur);
         servoTibia = new AX12(liaison, IDTibia);
-    }
-    catch(Exception e) {
-        System.out.println(e.getMessage());
-    }
+
 }
 
 bool Patte::testAngle(int angle) {
@@ -49,9 +46,9 @@ void Patte::setGroundAll() {
 void Patte::upDateDroiteMov(int angle, double longueur, char vitesse)
 {
     if(!testAngle(angle))
-        throw new Exception("Erreur angle droite mouvement : " + angle);
+        std::cout<<"Erreur angle droite mouvement : " << angle<< std::endl;
     if(!testLongueur(longueur))
-        throw new Exception("Erreur longueur droite mouvement : " + longueur);
+        std::cout<<"Erreur longueur droite mouvement : " << longueur<< std::endl;
 
     StructPatte w_position;
 
@@ -72,7 +69,7 @@ void Patte::upDateDroiteMov(int angle, double longueur, char vitesse)
 void Patte::setPosCoxa(char position)
 {
     if((position < 405) || (position > 620))
-        throw new Exception("Erreur angle servomoteur Coxa : " + (int)position);
+        std::cout<<"Erreur angle servomoteur Coxa : " << (int)position<< std::endl;
 
     servoCoxa.setPosition(position);
 }
@@ -80,7 +77,7 @@ void Patte::setPosCoxa(char position)
 void Patte::setPosCoxa(char position, char vitesse)
 {
     if((position < 405) || (position > 620))
-        throw new Exception("Erreur angle servomoteur Coxa : " + (int)position);
+        std::cout<<"Erreur angle servomoteur Coxa : " << (int)position<< std::endl;
 
     servoCoxa.setPositionExtrapol(position, vitesse);
 }
@@ -88,7 +85,7 @@ void Patte::setPosCoxa(char position, char vitesse)
 void Patte::setPosFemur(char position)
 {
     if((position < 300) || (position > 700))
-        throw new Exception("Erreur angle servomoteur Femur : " + (int)position);
+        std::cout<<"Erreur angle servomoteur Femur : " << (int)position<< std::endl;
 
     servoFemur.setPosition(position);
 }
@@ -96,7 +93,7 @@ void Patte::setPosFemur(char position)
 void Patte::setPosFemur(char position, char vitesse)
 {
     if((position < 300) || (position > 700))
-        throw new Exception("Erreur angle servomoteur Coxa : " + (int)position);
+        std::cout<<"Erreur angle servomoteur Coxa : " << (int)position<< std::endl;
 
     servoFemur.setPositionExtrapol(position, vitesse);
 }
@@ -104,7 +101,7 @@ void Patte::setPosFemur(char position, char vitesse)
 void Patte::setPosTibia(char position)
 {
     if((position < 220) || (position > 710))
-        throw new Exception("Erreur angle servomoteur Tibia : " + (int)position);
+        std::cout<<"Erreur angle servomoteur Tibia : " <<(int)position<< std::endl;
 
     servoTibia.setPosition(position);
 }
@@ -112,7 +109,7 @@ void Patte::setPosTibia(char position)
 void Patte::setPosTibia(char position, char vitesse)
 {
     if((position < 220) || (position > 710))
-        throw new Exception("Erreur angle servomoteur Coxa : " + (int)position);
+        std::cout<<"Erreur angle servomoteur Coxa : " << (int)position<< std::endl;
 
     servoTibia.setPositionExtrapol(position, vitesse);
 }
@@ -133,42 +130,42 @@ static StructPatte Patte::getPointMiddle() {
 
 static StructPatte Patte::getPointTop(int angle, double longueur) {
     double longueurDemiCarre = ((longueur / 2) * (longueur / 2));
-    double w_dist1 = Math.sqrt( longueurDemiCarre + 19321 - (longueur * 139 * Math.cos(Math.toRadians(angle))) );
-    double w_dist2 = Math.sqrt( ((w_dist1 - 52) * (w_dist1 - 52)) + 13225 );
+    double w_dist1 = sqrt( longueurDemiCarre + 19321 - (longueur * 139 * cos((M_Pi *(angle)) / 180)) );
+    double w_dist2 = sqrt( ((w_dist1 - 52) * (w_dist1 - 52)) + 13225 );
 
     char angleCoxa;
     if(angle > 180)
-        angleCoxa = (char)(512 + (((Math.toDegrees(Math.acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))) * 256) / 75));
+        angleCoxa = (char)(512 + (((180 * (acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))/ M_Pi) * 256) / 75));
     else
-        angleCoxa = (char)(512 - (((Math.toDegrees(Math.acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))) * 256) / 75));
+        angleCoxa = (char)(512 - (((180 * (acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) )) / M_Pi) * 256) / 75));
 
-    char angleFemur = (char)(556 + ((((Math.toDegrees(Math.acos( ((w_dist2 * w_dist2) - 13200) / (134 * w_dist2) )) + Math.toDegrees(Math.acos(115 / w_dist2)) ) - 90) * 256) / 75));
-    char angleTibia = (char)(512 - (((138 - Math.toDegrees(Math.acos( (22178 - (w_dist2 * w_dist2)) / 17822 ))) * 256) / 75));
+    char angleFemur = (char)(556 + ((((180 * (acos( ((w_dist2 * w_dist2) - 13200) / (134 * w_dist2) ))/ M_Pi + 180 * (Math.acos(115 / w_dist2))/ M_Pi ) - 90) * 256) / 75));
+    char angleTibia = (char)(512 - (((138 - 180 *(acos( (22178 - (w_dist2 * w_dist2)) / 17822 ))/ M_Pi) * 256) / 75));
 
     return new StructPatte(angleCoxa, angleFemur, angleTibia);
 }
 
 static Patte::StructPatte getPointBottom(int angle, double longueur) {
     double longueurDemiCarre = ((longueur / 2) * (longueur / 2));
-    double w_dist1 = Math.sqrt( longueurDemiCarre + 19321 - (longueur * 139 * Math.cos(Math.toRadians(180-angle))) );
-    double w_dist2 = Math.sqrt( ((w_dist1 - 52) * (w_dist1 - 52)) + 13225 );
+    double w_dist1 = sqrt( longueurDemiCarre + 19321 - (longueur * 139 * cos(M_Pi *(180-angle) / 180)) );
+    double w_dist2 = sqrt( ((w_dist1 - 52) * (w_dist1 - 52)) + 13225 );
 
     char angleCoxa;
     if(angle > 180)
-        angleCoxa = (char)(512 - (((Math.toDegrees(Math.acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))) * 256) / 75));
+        angleCoxa = (char)(512 - (((180 *(acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))/ M_Pi) * 256) / 75));
     else
-        angleCoxa = (char)(512 + (((Math.toDegrees(Math.acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))) * 256) / 75));
+        angleCoxa = (char)(512 + (((180 *(acos( (((w_dist1 * w_dist1) + 19321 - longueurDemiCarre) / (2 * 139 * w_dist1)) ))/ M_Pi) * 256) / 75));
 
-    char angleFemur = (char)(556 + ((((Math.toDegrees(Math.acos( ((w_dist2 * w_dist2) - 13200) / (134 * w_dist2) )) + Math.toDegrees(Math.acos(115 / w_dist2)) ) - 90) * 256) / 75));
-    char angleTibia = (char)(512 - (((138 - Math.toDegrees(Math.acos( (22178 - (w_dist2 * w_dist2)) / 17822 ))) * 256) / 75));
+    char angleFemur = (char)(556 + ((((180 * (acos( ((w_dist2 * w_dist2) - 13200) / (134 * w_dist2) ))/ M_Pi + 180 * (Math.acos(115 / w_dist2))/ M_Pi ) - 90) * 256) / 75));
+    char angleTibia = (char)(512 - (((138 - 180 *(acos( (22178 - (w_dist2 * w_dist2)) / 17822 ))/ M_Pi) * 256) / 75));
 
     return new StructPatte(angleCoxa, angleFemur, angleTibia);
 }
 
 StructPatte Patte::getPoint(int angle, double longueur) {
-    final int demiStep = (Robot.STEP_MAX/2);
-    final int quartStep = (Robot.STEP_MAX/4);
-    int w_step = Math.abs(step - demiStep);
+    int demiStep = (Robot.STEP_MAX/2);
+    int quartStep = (Robot.STEP_MAX/4);
+    int w_step = abs(step - demiStep);
     StructPatte w_middle = getPointMiddle();
     StructPatte w_extrem;
 

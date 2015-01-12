@@ -63,7 +63,7 @@ bool ServoMoteur::testVitesse(char w_vitesse)
      *
      * @return le CRC de la trame
      */
-char ServoMoteur::CalcCRC(char[] data)
+char ServoMoteur::CalcCRC(char data[])
 {
     int len = data[3] + 2;
     byte crc = 0;

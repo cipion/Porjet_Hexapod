@@ -32,7 +32,7 @@ import java.util.Timer;
 #include "../stdrpi/SerialRPi.h"
 #include "Patte.h"
 
-#define STEP_MAX = 16;
+#define STEP_MAX = 16; // on peut mettre 32 pour plus de fluidité (16 = rapidité)
 #define DEAD_ZONE_JOY = 30;
 #define OFFSET_ANGLE = 45;
 #define LONGUEUR_MAX = 100;

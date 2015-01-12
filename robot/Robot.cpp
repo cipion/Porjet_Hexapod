@@ -7,13 +7,11 @@ Robot::Robot(GpioController gpioRPi)
             SerialRPi liaisonRS232 = new SerialRPi();
 
             // Positionnement bascule mode emission
-            modeBasc = gpioRPi.provisionDigitalOutputPin(RaspiPin.GPIO_01, PinState.HIGH);
+            modeBasc = gpioRPi.provisionDigitalOutputPin(RaspiPin.GPIO_01, PinState.HIGH);//todo gpio
 
-            try { //arrete le thread pendant 1 seconde  (java)
-                Thread.sleep(1000); // trouver un equivalent en C++
-            } catch (InterruptedException e) { // on gere l'exception (java)
-                e.printStackTrace();
-            }
+
+                Thread.sleep(1000); // trouver un equivalent en C++ todo
+
 
             // Creation des pattes de l'hexapod
             front_left = new Patte(liaisonRS232, (STEP_MAX/4), (char)1, (char)3, (char)5);
@@ -28,12 +26,9 @@ Robot::Robot(GpioController gpioRPi)
             // Init Servomoteurs
             originRobot();
 
-            // exception java à convertir en c++
-            try {
-                Thread.sleep(200); // sleep 0,2 seconde
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
+
+            Thread.sleep(200); // sleep 0,2 seconde todo
+
 
             std::cout<<"OK"<<std::endl;
 
@@ -47,6 +42,12 @@ Robot::Robot(GpioController gpioRPi)
 
 Robot::~Robot()
 {
+    delete front_left;
+    delete front_right;
+    delete middle_left;
+    delete middle_right;
+    delete back_left;
+    delete back_right;
 }
 
 
@@ -199,12 +200,12 @@ void Robot::processDirectionRobot()
             if(w_periodTimer != periodTimer)
             {
                 if(periodTimer != 0)
-                    timer.cancel();
+                    timer.cancel();//todo timer
 
                 if(w_periodTimer != 0)
                 {
-                    timer = new Timer();
-                    timer.schedule(new PeriodicUpdateTask(), 0, w_periodTimer);
+                    timer = new Timer(); // todo
+                    timer.schedule(new PeriodicUpdateTask(), 0, w_periodTimer);//todo
                 }
 
                 periodTimer = w_periodTimer;
@@ -220,17 +221,15 @@ void Robot::sendDirectionsPattes()
                 // baisser toute les pattes
             }
             else
-            { // exeption a changer pour le C++
-                try {
+            {
+
                     front_left.upDateDroiteMov(angleFL, longueurFL, vitesseServomoteurs);
                     front_right.upDateDroiteMov(angleFR, longueurFR, vitesseServomoteurs);
                     middle_left.upDateDroiteMov(angleML, longueurML, vitesseServomoteurs);
                     middle_right.upDateDroiteMov(angleMR, longueurMR, vitesseServomoteurs);
                     back_left.upDateDroiteMov(angleBL, longueurBL, vitesseServomoteurs);
                     back_right.upDateDroiteMov(angleBR, longueurBR, vitesseServomoteurs);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+
             }
 }
 
@@ -252,16 +251,14 @@ void Robot::originRobot()
             back_left.resetStep();
             back_right.resetStep();
 
-            try { // EXEPTION !! à mettre en c++
+
                 front_left.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 front_right.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 middle_left.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 middle_right.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 back_left.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
                 back_right.setPosAll(w_middle.getAngleCoxa(), w_middle.getAngleFemur(), w_middle.getAngleTibia(), (char)256);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
 }
 
 
@@ -337,20 +334,20 @@ static int Robot::getLongueurMovCIR(float dist, float distMax)
 
 static int Robot::getAngleCIR(float distCIR, float distHypPatte, float distPatte)
 {
-    return (int)Math.round(Math.acos( ((distHypPatte * distHypPatte) + (distCIR * distCIR) - (distPatte * distPatte)) / (2 * distHypPatte * distCIR) ));
+    return (int)round(acos( ((distHypPatte * distHypPatte) + (distCIR * distCIR) - (distPatte * distPatte)) / (2 * distHypPatte * distCIR) ));
 }
 
 static float Robot::module(float x, float y)
 {
-    return (float)(Math.sqrt(x*x + y*y) );
+    return (float)(sqrt(x*x + y*y) );
 }
 
 static int Robot::module(int x, int y)
 {
-    return (int)(Math.round( Math.sqrt(x*x + y*y) ));
+    return (int)(round( sqrt(x*x + y*y) ));
 }
 
 static int Robot::arcTanDeg(int x, int y)
 {
-    return (int)((Math.round(Math.toDegrees(Math.atan2(y, x))) + 360) % 360);
+    return (int)((round(180 *(Math.atan2(y, x))/ M_Pi) + 360) % 360);
 }

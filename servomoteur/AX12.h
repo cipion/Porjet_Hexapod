@@ -1,4 +1,5 @@
-#pragma once
+#ifndef AX12_H
+#define AX12_H
 
 /**
  * This file is part of OVPiPod.
@@ -38,3 +39,4 @@ public:
 
 };
 
+#endif AX12_H

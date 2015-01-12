@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SERIALRPI_H
+#define SERIALRPI_H
 
 /**
  * This file is part of OVPiPod.
@@ -66,3 +67,4 @@ private:
     Serial serialPi; // **** class Pi4j !! ***
 };
 
+#endif SERIALRPI_H

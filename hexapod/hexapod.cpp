@@ -16,9 +16,6 @@
 */
 
 
-
-import java.util.Scanner;
-
 import jetty.WebSocketRobot;
 
 import com.pi4j.io.gpio.GpioController;
@@ -28,7 +25,8 @@ import com.pi4j.io.gpio.GpioFactory;
 #include "../robot/PeriodicUpdateTask.h"
 #include "../robot/Robot.h"
 #include "../robot/StructPatte.h"
-#include "iostream"
+#include <iostream>
+#include <string>
 
 void helpPrint();
 
@@ -38,15 +36,15 @@ void helpPrint();
      * @param args
      * 			Argument passe en parametre du programme
      */
-void hexapod::main(String[] args) {
+void hexapod::main(int argc, char *argv[]) {
 
     int choix = 0;
 
-    if(args.length == 1)
+    if(argc == 1)
     {
-        choix = Integer.parseInt(args[0]);
+        choix = std::stoi(argv[0]);
 
-        if(args[0] == "-h")
+        if(argv[0] == "-h")
         {
             // Affichage de l'aide
             helpPrint();
@@ -55,24 +53,24 @@ void hexapod::main(String[] args) {
 
     if(choix == 0)
     {
-        Scanner sc = new Scanner(System.in);
+        int sc;
+        std::cin >> sc;
+
         helpPrint();
-        choix = sc.nextInt();
-        sc.close();
-    }
+        choix = sc;
+     }
 
     if(choix != 2) {
         // create gpio controller
-        GpioController gpio = GpioFactory.getInstance();
+        GpioController gpio = GpioFactory.getInstance(); //todo gpio
 
         // Init du robot et attente instruction
-        @SuppressWarnings("unused")
-                Robot Hexapod = new Robot(gpio);
+           Robot Hexapod = new Robot(gpio);
     }
 
     if(choix != 1) {
         // Init serveur websocket
-        WebSocketRobot jetty = new WebSocketRobot();
+        WebSocketRobot jetty = new WebSocketRobot(); // todo websocket
         jetty.start();
     }
 }

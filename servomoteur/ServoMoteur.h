@@ -1,4 +1,5 @@
-#pragma once
+#ifndef SERVOMOTEUR_H
+#define SERVOMOTEUR_H
 
 /**
  * This file is part of OVPiPod.
@@ -100,3 +101,4 @@ protected:
 
 };
 
+#endif SERVOMOTEUR_H
