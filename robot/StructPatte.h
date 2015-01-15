@@ -1,6 +1,7 @@
 #ifndef STRUCTPATTE_H
 #define STRUCTPATTE_H
 
+#include "Patte.h"
 /**
  * Classe StructPatte representant les angles des 3 servomoteurs d'une patte
  *
@@ -22,7 +23,7 @@ public:
      * @param copy
      * 			Structure de l'element a copier
      */
-    StructPatte(StructPatte copy);
+    StructPatte(StructPatte copy); // todo probleme parametre
 
     /**
      * Constructeur normal de l'objet StructPatte representant les 3 angles des servomoteur de la patte

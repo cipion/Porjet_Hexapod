@@ -23,7 +23,9 @@ SOURCES += \
     servomoteur/ServoMoteur.cpp \
     stdrpi/SerialRPi.cpp \
     robot/StructPatte.cpp \
-    robot/PeriodicUpdateTask.cpp
+    robot/PeriodicUpdateTask.cpp \
+    jetty/robotwebsockethandler.cpp \
+    jetty/websocketrobot.cpp
 
 HEADERS += \
     robot/Patte.h \
@@ -32,4 +34,6 @@ HEADERS += \
     servomoteur/ServoMoteur.h \
     stdrpi/SerialRPi.h \
     robot/StructPatte.h \
-    robot/PeriodicUpdateTask.h
+    robot/PeriodicUpdateTask.h \
+    jetty/robotwebsockethandler.h \
+    jetty/websocketrobot.h

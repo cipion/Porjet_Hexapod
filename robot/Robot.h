@@ -18,17 +18,17 @@
 * You should have received a copy of the GNU General Public License
 * along with OVPiPod.  If not, see <http://www.gnu.org/licenses/>.
 */
-{/* Il faut une librairie pour ça !
+/* Il faut une librairie pour ça !
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioPinDigitalOutput;
 import com.pi4j.io.gpio.PinState;
 import com.pi4j.io.gpio.RaspiPin;
 import java.util.Timer;
-*/}
+*/
 
 #include <math.h>
-#include "PeriodicUpdateTask"
+#include "PeriodicUpdateTask.h"
 #include "../stdrpi/SerialRPi.h"
 #include "Patte.h"
 
@@ -51,7 +51,7 @@ public:
          * @param gpioRPi
          * 				Object permettant la manipulation du GPIO du Raspberry Pi
          */
-    Robot(GpioController gpioRPi);
+    Robot(GpioController gpioRPi); // todo gpio
     ~Robot();
 
     /**
@@ -231,7 +231,7 @@ private:
     static Robot handle;
 
     // @SuppressWarnings("unused") pour dire en java qu'on ne signale pas le code inutile
-    const GpioPinDigitalOutput modeBasc;
+    const GpioPinDigitalOutput modeBasc; // todo gpio
 
     // Definition des pattes pour un Hexapod
     Patte front_left;

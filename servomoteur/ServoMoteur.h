@@ -93,7 +93,7 @@ protected:
      *
      * @return le CRC de la trame
      */
-    char CalcCRC(char[] data); // probleme tableau de char
+    char CalcCRC(char data[]); // probleme tableau de char
 
 
 

@@ -19,7 +19,7 @@
  */
 
 #include "ServoMoteur.h"
-#include "stdrpi/SerialRPi.h"
+#include "../stdrpi/SerialRPi.h"
 
 
 /**
@@ -29,7 +29,7 @@
  * @version 3.1
  */
 
-class AX12 : public servomoteur
+class AX12 : public ServoMoteur
 {
 public:
     AX12(SerialRPi liaison, char ID);

@@ -15,12 +15,12 @@
 * along with OVPiPod.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-
+/* todo
 import jetty.WebSocketRobot;
 
 import com.pi4j.io.gpio.GpioController;
 import com.pi4j.io.gpio.GpioFactory;
-
+*/
 #include "../robot/Patte.h"
 #include "../robot/PeriodicUpdateTask.h"
 #include "../robot/Robot.h"
@@ -71,7 +71,7 @@ void hexapod::main(int argc, char *argv[]) {
     if(choix != 1) {
         // Init serveur websocket
         WebSocketRobot jetty = new WebSocketRobot(); // todo websocket
-        jetty.start();
+        jetty.start(); // start le serveur (appelle de run())
     }
 }
 

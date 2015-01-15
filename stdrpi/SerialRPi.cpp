@@ -27,14 +27,11 @@ SerialRPi::SerialRPi() {
 
     std::cout<<"OPEN_COM_PORT ... "<< std::endl;
 
-    try {
+
         // Ouverture port serie
         serialPi.open(Serial.DEFAULT_COM_PORT, 1000000);
-    }
-    catch(SerialPortException ex) {
-        std::cout<<"SERIAL SETUP FAILED : " << ex.getMessage()<< std::endl;
-        return;
-    }
+
+
 
     if(serialPi.isOpen())
         std::cout<<"OK."<< std::endl;

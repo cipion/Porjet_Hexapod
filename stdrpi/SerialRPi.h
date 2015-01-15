@@ -19,11 +19,11 @@
  */
 
 
-import com.pi4j.io.serial.Serial;
+//import com.pi4j.io.serial.Serial; todo
 //import com.pi4j.io.serial.SerialDataEvent;
 //import com.pi4j.io.serial.SerialDataListener;
-import com.pi4j.io.serial.SerialFactory;
-import com.pi4j.io.serial.SerialPortException;
+//import com.pi4j.io.serial.SerialFactory;
+//import com.pi4j.io.serial.SerialPortException;
 
 // Objet SerialRPi a partir de la lib pi4j
 // http://pi4j.com/example/serial.html
@@ -64,7 +64,7 @@ public:
 
 
 private:
-    Serial serialPi; // **** class Pi4j !! ***
+    Serial serialPi; // **** class Pi4j !! *** todo gpio
 };
 
 #endif SERIALRPI_H
