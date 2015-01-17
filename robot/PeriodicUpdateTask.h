@@ -2,12 +2,18 @@
 #define PERIODICUPDATETASK_H
 
 #include "Robot.h"
-// import java.util.TimerTask; todo
+#include <thread>
 
-class PeriodicUpdateTask : public TimeTask // todo timetask
+class PeriodicUpdateTask
 {
+
 public:
+    PeriodicUpdateTask();
+
     void run();
+
+private:
+    std::thread thread;
 };
 
 #endif // PERIODICUPDATETASK_H

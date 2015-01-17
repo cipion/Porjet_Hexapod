@@ -10,7 +10,8 @@ Robot::Robot(GpioController gpioRPi)
             modeBasc = gpioRPi.provisionDigitalOutputPin(RaspiPin.GPIO_01, PinState.HIGH);//todo gpio
 
 
-                Thread.sleep(1000); // trouver un equivalent en C++ todo
+               std::chrono::milliseconds dura (1000);
+               std::this_thread::sleep_for (dura);// sleep du thread pendant 1 sec
 
 
             // Creation des pattes de l'hexapod
@@ -27,7 +28,8 @@ Robot::Robot(GpioController gpioRPi)
             originRobot();
 
 
-            Thread.sleep(200); // sleep 0,2 seconde todo
+            std::chrono::milliseconds dura (200);
+            std::this_thread::sleep_for (dura);// sleep du thread pendant 0,2 sec
 
 
             std::cout<<"OK"<<std::endl;

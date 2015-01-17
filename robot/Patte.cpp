@@ -13,7 +13,7 @@ Patte::Patte(SerialRPi liaison, int Step, char IDCoxa, char IDFemur, char IDTibi
     step = Step;
 
 
-        servoCoxa = new AX12(liaison, IDCoxa); // todo gpio
+        servoCoxa = new AX12(liaison, IDCoxa);
         servoFemur = new AX12(liaison, IDFemur);
         servoTibia = new AX12(liaison, IDTibia);
 

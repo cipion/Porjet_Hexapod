@@ -29,7 +29,10 @@
 // http://pi4j.com/example/serial.html
 
 #include "iostream"
-
+#include <wiringPi.h> // installer dans nos ficher
+#include <wiringSerial.h>
+#include <chrono>
+#include <thread>
 
 /**
  * Classe SerialRPi genere a partir de la lib pi4j
@@ -64,7 +67,8 @@ public:
 
 
 private:
-    Serial serialPi; // **** class Pi4j !! *** todo gpio
+    //file descriptor
+    int fd;
 };
 
 #endif SERIALRPI_H

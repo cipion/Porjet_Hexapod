@@ -31,6 +31,8 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 #include "../robot/Robot.h"
 #include <string>
+#include "websocketrobot.h"
+#include <string>
 
 /**
  * Classe contenant le masquage des methode de la WebSocket
@@ -55,14 +57,14 @@ public:
      */
     void onClose(int statusCode, String reason);
 
-    /**
+    /** pas geré en c++
      * Methode appele lors d'une erreur du la socket
      *
      * @param t
      * 			exception sur la socket
      */
 
-    void onError(Throwable t);
+    // void onError(Throwable t);
 
     /**
      * Methode appele lors de la connexion de la socket
@@ -71,7 +73,7 @@ public:
      * 			session associe a la socket ouverte avec le client
      */
 
-    void onConnect(Session session);
+    void onConnect(Session session); // todo session
 
     /**
      * Methode appele lors de la reception d'un message du client

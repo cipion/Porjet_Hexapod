@@ -1,6 +1,6 @@
 #ifndef ROBOT_H
 #define ROBOT_H
-#pragma once
+
 
 /**
 * This file is part of OVPiPod.
@@ -18,19 +18,15 @@
 * You should have received a copy of the GNU General Public License
 * along with OVPiPod.  If not, see <http://www.gnu.org/licenses/>.
 */
-/* Il faut une librairie pour ça !
 
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioPinDigitalOutput;
-import com.pi4j.io.gpio.PinState;
-import com.pi4j.io.gpio.RaspiPin;
-import java.util.Timer;
-*/
-
+#include <wiringPi.h> // todo installer dans nos fichier
+#include <wiringSerial.h>
 #include <math.h>
 #include "PeriodicUpdateTask.h"
 #include "../stdrpi/SerialRPi.h"
 #include "Patte.h"
+#include <chrono>
+#include <thread>
 
 #define STEP_MAX = 16; // on peut mettre 32 pour plus de fluidité (16 = rapidité)
 #define DEAD_ZONE_JOY = 30;

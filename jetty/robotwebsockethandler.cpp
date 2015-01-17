@@ -14,22 +14,22 @@
      */
 
     void RobotWebSocketHandler::onClose(int statusCode, String reason) {
-        WebSocketRobot.resetRobot();// todo websocket
+        WebSocketRobot.resetRobot();
         std::cout<<"Close: statusCode="<< statusCode << ", reason=" << reason<<std::endl;
     }
 
-    /**
+
+    /**  pas de gestion des erreurs en c++
      * Methode appele lors d'une erreur du la socket
      *
      * @param t
      * 			exception sur la socket
-     */
-
-    void RobotWebSocketHandler::onError(Throwable t) // todo Throwable
+     *//*
+    void RobotWebSocketHandler::onError(Throwable t)
     {
-        WebSocketRobot.resetRobot();// todo websock
+        WebSocketRobot.resetRobot();
         std::cout<<"Error: "<<t.getMessage()<< std::endl;
-    }
+    }*/
 
     /**
      * Methode appele lors de la connexion de la socket
@@ -40,17 +40,17 @@
 
     void RobotWebSocketHandler::onConnect(Session session)// todo session
     {
-        if(!WebSocketRobot.clientIsConnected())// todo websocket
+        if(!WebSocketRobot.clientIsConnected())
         {
-            WebSocketRobot.clientConnect();//todo
-            std::cout<<"Connect: " << session.getRemoteAddress().getAddress()<<std::endl;
+            WebSocketRobot.clientConnect();
+            std::cout<<"Connect: " << session.getRemoteAddress().getAddress()<<std::endl; // todo session
 
-            session.getRemote().sendString("OVPIPOD V3.0");//todo
+            session.getRemote().sendString("OVPIPOD V3.0");//todo session
 
 
         }
         else
-            session.close();// todo
+            session.close();// todo session
     }
 
     /**
@@ -59,7 +59,9 @@
      * @param message
      * 			Message envoye par le client
      */
-    void RobotWebSocketHandler::onMessage(String message) {
+    void RobotWebSocketHandler::onMessage(std::string message) {
+        int length (0); // longueur de tableau
+        int i (0);
 
         std::string delimiter = "[:]";
 
@@ -73,7 +75,10 @@
         }
          std::String coord[] = message;
 
-        if(coord.length != 2)
+         for (i=0; coord[i] =! "\0"; i++)
+             length++;
+
+        if(length != 2) // todo longueur tableau
             std::cout<<"MSG : " << message<<std::endl;
         else
             switch(coord[0])

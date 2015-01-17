@@ -26,6 +26,7 @@ import org.eclipse.jetty.websocket.server.WebSocketHandler;
 import org.eclipse.jetty.websocket.servlet.WebSocketServletFactory;
 */
 #include "../robot/Robot.h"
+#include <thread>
 
 /**
  * Classe Declarant la WebSocket
@@ -63,7 +64,7 @@ public:
 
 
 private :
-
+    std::thread thread;
     static bool clientConnected;
 
 };

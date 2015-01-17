@@ -27,6 +27,7 @@ import com.pi4j.io.gpio.GpioFactory;
 #include "../robot/StructPatte.h"
 #include <iostream>
 #include <string>
+#include "../jetty/websocketrobot.h"
 
 void helpPrint();
 
@@ -71,7 +72,7 @@ void hexapod::main(int argc, char *argv[]) {
     if(choix != 1) {
         // Init serveur websocket
         WebSocketRobot jetty = new WebSocketRobot(); // todo websocket
-        jetty.start(); // start le serveur (appelle de run())
+
     }
 }
 

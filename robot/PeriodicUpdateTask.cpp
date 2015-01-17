@@ -9,9 +9,24 @@
  * @author Jeremy HERGAULT, Jean-Phillipe HAYES
  */
 
-
-    void run()
+    PeriodicUpdateTask::PeriodicUpdateTask()
     {
-        Robot.getHandle().sendDirectionsPattes();
+        thread = new std::thread();
+        run();
+
+    }
+
+    void PeriodicUpdateTask::run()
+    {
+       thread.join();
+
+       while (1)
+       {
+           Robot.getHandle().sendDirectionsPattes();
+           std::this_thread::sleep_for (std::chrono::milliseconds(1));
+       }
+
+
+       thread.detach();
     }
 

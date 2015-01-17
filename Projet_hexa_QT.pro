@@ -37,3 +37,6 @@ HEADERS += \
     robot/PeriodicUpdateTask.h \
     jetty/robotwebsockethandler.h \
     jetty/websocketrobot.h
+
+OTHER_FILES += \
+    README.txt
