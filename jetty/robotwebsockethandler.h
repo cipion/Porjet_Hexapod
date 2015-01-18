@@ -20,19 +20,12 @@
  */
 
 
-/*// todo lib websocket
-import org.eclipse.jetty.websocket.api.Session;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketError;
-import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
-import org.eclipse.jetty.websocket.api.annotations.WebSocket;
-*/
 
 #include "../robot/Robot.h"
 #include <string>
 #include "websocketrobot.h"
 #include <string>
+#include "../libwebsocket/WebSocket.hpp"
 
 /**
  * Classe contenant le masquage des methode de la WebSocket

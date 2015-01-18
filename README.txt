@@ -1,4 +1,4 @@
-Projet HEXAPOD
+﻿Projet HEXAPOD
 
 Acteur;
 Thomas GACHE
@@ -7,8 +7,9 @@ Johan KARPINSKI
 Langage de programmation : C++
 
 Ce programme permet de contrôler un robot hexapode via une tablette (ou smartphone) ou une manette.
+Ce programme n'est fini, la pertie websocket n'est pas opérationnelle
 
-Programme :
+Programme : **************************************************************************************************************************
 
 Le projet est constitué de 5 parties (dossiers):
 - Hexapod : c'est le code "main" du projet, il instancie un objet robot et un objet websocket
@@ -28,9 +29,11 @@ Le projet est constitué de 5 parties (dossiers):
         - Servomoteur : classe qui contrôle est envoi les commandes à la classe "AX12"
 
 - stdrpi : classe qui gère la communication avec les servomoteurs via le port série.
+            les librairies sont "wiringPi" et "wiringSerial"
+            installation : http://wiringpi.com/download-and-install/
 
 
-Commande :
+Commande : ***************************************************************************************************************************
 La commande du robot se fait grâce à deux joysticks
 
 Tout d'abord il faut se connecter au hotspot WIFI du robot

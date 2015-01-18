@@ -15,12 +15,7 @@
 * along with OVPiPod.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-/* todo
-import jetty.WebSocketRobot;
 
-import com.pi4j.io.gpio.GpioController;
-import com.pi4j.io.gpio.GpioFactory;
-*/
 #include "../robot/Patte.h"
 #include "../robot/PeriodicUpdateTask.h"
 #include "../robot/Robot.h"
@@ -28,8 +23,12 @@ import com.pi4j.io.gpio.GpioFactory;
 #include <iostream>
 #include <string>
 #include "../jetty/websocketrobot.h"
+#include "../libwebsocket/WebSocket.hpp" // lib pour websocket
+#include <wiringPi.h> // installer sur le raspberry
+#include <wiringSerial.h> // lib pour le GPIO
 
-void helpPrint();
+
+void helpPrint(); // affichage guide pour choix programme
 
 /**
      * Main de la classe Maitre

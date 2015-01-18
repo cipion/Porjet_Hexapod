@@ -19,18 +19,13 @@
  */
 
 
-//import com.pi4j.io.serial.Serial; todo
-//import com.pi4j.io.serial.SerialDataEvent;
-//import com.pi4j.io.serial.SerialDataListener;
-//import com.pi4j.io.serial.SerialFactory;
-//import com.pi4j.io.serial.SerialPortException;
 
-// Objet SerialRPi a partir de la lib pi4j
-// http://pi4j.com/example/serial.html
 
-#include "iostream"
-#include <wiringPi.h> // installer dans nos ficher
-#include <wiringSerial.h>
+
+
+#include <iostream>
+#include <wiringPi.h> // installer sur le raspberry
+#include <wiringSerial.h> // lib pour le GPIO
 #include <chrono>
 #include <thread>
 
