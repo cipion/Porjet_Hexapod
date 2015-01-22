@@ -19,7 +19,8 @@
     }
 
 
-    /**  pas de gestion des erreurs en c++
+    /** Attention :  pas de gestion des erreurs dans ce programme !
+     *
      * Methode appele lors d'une erreur du la socket
      *
      * @param t
@@ -63,6 +64,10 @@
         int length (0); // longueur de tableau
         int i (0);
 
+        /**
+         * @brief delimiter
+         * on separer le message recu pour traitement des information
+         */
         std::string delimiter = "[:]";
 
         size_t pos = 0;

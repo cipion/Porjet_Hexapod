@@ -34,10 +34,14 @@
 class WebSocketRobot
 {
 public:
+    /**
+     * @brief WebSocketRobot
+     * constructeur qui permet d'instancier un objet thread et appeler la methode run
+     */
     WebSocketRobot();
 
     /**
-     * Thread gestion Websocket Jetty
+     * Thread gestion Websocket libwebsocket
      */
     void run();
 
@@ -60,7 +64,13 @@ public:
 
 
 private :
+    /**
+     * @brief thread
+     * On déclare un thread pour gerer les WebSocketRobot
+     */
     std::thread thread;
+
+
     static bool clientConnected;
 
 };

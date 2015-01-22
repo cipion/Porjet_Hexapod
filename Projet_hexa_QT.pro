@@ -39,4 +39,5 @@ HEADERS += \
     jetty/websocketrobot.h
 
 OTHER_FILES += \
-    README.txt
+    README.txt \
+    Etat_du_programme.txt

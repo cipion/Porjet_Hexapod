@@ -47,7 +47,7 @@ public:
          * @param gpioRPi
          * 				Object permettant la manipulation du GPIO du Raspberry Pi
          */
-    Robot(GpioController gpioRPi); // todo gpio
+    Robot();
     ~Robot();
 
     /**
@@ -226,8 +226,6 @@ private:
 
     static Robot handle;
 
-    // @SuppressWarnings("unused") pour dire en java qu'on ne signale pas le code inutile
-    const GpioPinDigitalOutput modeBasc; // todo gpio
 
     // Definition des pattes pour un Hexapod
     Patte front_left;

@@ -1,13 +1,13 @@
 #include "Robot.h"
 #define M_Pi 3.14159265359
 
-Robot::Robot(GpioController gpioRPi)
+Robot::Robot()
 {
     // Ouverture COM serie avant creation des pattes
             SerialRPi liaisonRS232 = new SerialRPi();
 
-            // Positionnement bascule mode emission
-            modeBasc = gpioRPi.provisionDigitalOutputPin(RaspiPin.GPIO_01, PinState.HIGH);//todo gpio
+            // ouverture port serie
+            serialOpen ("/dev/ttyAMA0", 1000000)
 
 
                std::chrono::milliseconds dura (1000);

@@ -31,9 +31,11 @@
 void helpPrint(); // affichage guide pour choix programme
 
 /**
-     * Main de la classe Maitre
+     * Main
      *
-     * @param args
+     * @param argc : nombre d'argument
+     * @param argv : message de l'argument
+     *
      * 			Argument passe en parametre du programme
      */
 void hexapod::main(int argc, char *argv[]) {
@@ -61,11 +63,10 @@ void hexapod::main(int argc, char *argv[]) {
      }
 
     if(choix != 2) {
-        // create gpio controller
-        GpioController gpio = GpioFactory.getInstance(); //todo gpio
+
 
         // Init du robot et attente instruction
-           Robot Hexapod = new Robot(gpio);
+           Robot Hexapod = new Robot();
     }
 
     if(choix != 1) {

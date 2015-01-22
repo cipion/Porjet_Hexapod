@@ -2,8 +2,8 @@
 
 WebSocketRobot::WebSocketRobot()
 {
-   thread = new std::thread();
-   run();
+   thread = new std::thread(); // on instancie un objet thread
+   run(); // methode pour lancer le serveur et gerer les sockets
 }
 
 
@@ -11,12 +11,14 @@ WebSocketRobot::WebSocketRobot()
 
 
 /**
-     * Thread gestion Websocket Jetty
+     * Thread gestion Websocket libwebsocket
      */
 void WebSocketRobot::run()
 {
     thread.join(); // le code est pris en charge par un thread (autre que celui de robot)
 
+    /* Code à changer avec la nouvelle librairie
+     *
     clientConnected = false;
     Server server = new Server(3842); // creation server webSocket port 3842 avec la lib todo
     WebSocketHandler wsHandler = new WebSocketHandler() // objet de manip des webSocket todo
@@ -33,7 +35,10 @@ void WebSocketRobot::run()
 
 
     server.join(); // todo
-    thread.detach();
+
+    */
+
+    thread.detach(); // fin du traitement du thread
 }
 
 /**

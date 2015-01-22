@@ -50,7 +50,8 @@ public:
      */
     void onClose(int statusCode, String reason);
 
-    /** pas geré en c++
+    /** Attention : pas geré dans ce programme !
+     *
      * Methode appele lors d'une erreur du la socket
      *
      * @param t

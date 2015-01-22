@@ -1,11 +1,5 @@
 #include "SerialRPi.h"
 
-
-SerialRPi::SerialRPi()
-{
-}
-
-
 SerialRPi::~SerialRPi()
 {
 }
@@ -31,14 +25,14 @@ SerialRPi::SerialRPi() {
     if (wiringPiSetup () == -1)
     {
       std::cout<< "Unable to start wiringPi:"<< strerror (errno)<<std::endl;
-       exit (1);
+       exit (1); // si wiringPi n'est pas OK
      }
     else
         std::cout<<"wirringPi start OK"<<std::endl;
 
 
         // Ouverture port serie
-    if ((fd = serialOpen ("/dev/ttyAMA0", 1000000)) < 0) // TODO déclarer fd
+    if ((fd = serialOpen ("/dev/ttyAMA0", 1000000)) < 0) // liaison 1MHz
     {
       std::cout<<"Unable to open serial device: "<<strerror (errno)<<std::endl ;
 
@@ -59,10 +53,13 @@ SerialRPi::SerialRPi() {
      * @param lenght
      * 			Nombre d'octets a envoyer (taille du tableau de char)
      */
-void SerialRPi::send(char data[], int lenght) {
-    if(serialDataAvail (fd)) {  // TODO déclarer fd
-        for(int i = 0; i < lenght; i++) {
-            serialPutchar (fd, data[i]) ;
+void SerialRPi::send(char data[], int lenght)
+{
+    if(serialDataAvail (fd))
+    {
+        for(int i = 0; i < lenght; i++)
+        {
+            serialPutchar (fd, data[i]) ; // envoie d'un caractere
         }
 
         serialFlush (fd); // This discards all data received, or waiting to be send down the given device.

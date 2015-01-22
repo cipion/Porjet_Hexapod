@@ -1,0 +1,45 @@
+GPIO :
+Pour compiler la classe SerialRPi il faut installer la librairie "wiringPi" sur le Raspberry (voir README)
+
+@Travail restant :
+
+La librairie "libwebsocket" est dans le dossier libwebsocket à la racine du projet.
+
+Dossier jetty : gestion de la librairie "libwebsocket"
+                        websocketrobot : gestion du serveur websocket et des trames
+
+Dans cette classe il faut utiliser les méthodes de la librairie "libwebsocket" pour gérer les trames qui arrivent sur le serveur.
+La méthode run() doit créer le serveur websocket et gérer les websockets
+
+
+Code JAVA exemple :
+
+public class WebSocketRobot extends Thread {
+        private static boolean clientConnected;
+
+        /**
+         * Thread gestion Websocket Jetty
+         */
+        public void run() {
+                clientConnected = false;
+        Server server = new Server(3842);
+        WebSocketHandler wsHandler = new WebSocketHandler() {
+            @Override
+            public void configure(WebSocketServletFactory factory) {
+                factory.register(RobotWebSocketHandler.class);
+            }
+        };
+        server.setHandler(wsHandler);
+        try {
+                        server.start();
+                } catch (Exception e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+        try {
+                        server.join();
+                } catch (InterruptedException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                }
+    }
